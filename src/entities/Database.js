@@ -45,7 +45,7 @@ class Database extends EventEmitter {
     if (!jpegRaw) {
       return false;
     } else {
-      await removeFile(`${dbFolder}${jpegRaw.url}`);
+      removeFile(`${dbFolder}${jpegRaw.url}`);
 
       delete this.idToJpeg[jpegId];
 

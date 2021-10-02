@@ -17,7 +17,7 @@ app.get('/ping', (req, res) => res.json({ping: 'pong'}));
 
 app.post('/upload' , upload.single('image'), async(req, res) => {
   
-  await db.saveImgMetaData(req.file);
+  db.saveImgMetaData(req.file);
 
   return res.json(req.file.id);
 });
@@ -45,7 +45,7 @@ app.get('/image/:id', (req, res) => {
 
 app.delete('/image/:id', async (req, res) => {
   const jpegId = req.params.id;
-  const delFile = await db.remove(jpegId);
+  const delFile = db.remove(jpegId);
   if (!delFile) {
     res.statusCode = 404
     return res.end()
