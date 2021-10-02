@@ -32,7 +32,7 @@ class Database extends EventEmitter {
       createDate: Date.now(),
       size: imgContent.size,
       mimetype: imgContent.mimetype,
-      url: `/imgs/${imgContent.filename}`,
+      // url: `/imgs/${imgContent.filename}`,
     }
     this.idToJpeg[resObj.id] = resObj
 
