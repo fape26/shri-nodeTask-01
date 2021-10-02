@@ -39,7 +39,7 @@ class Database extends EventEmitter {
     this.emit('changed');
   }
 
-  remove(jpegId) {
+  async remove(jpegId) {
     const jpegRaw = this.idToJpeg[jpegId];
     
     if (!jpegRaw) {
