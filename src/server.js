@@ -43,7 +43,7 @@ app.get('/image/:id', (req, res) => {
   }
 });
 
-app.delete('/image/:id', (req, res) => {
+app.delete('/image/:id', async (req, res) => {
   const jpegId = req.params.id;
   const delFile = await db.remove(jpegId);
   if (!delFile) {
