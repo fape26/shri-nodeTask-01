@@ -26,14 +26,15 @@ class Database extends EventEmitter {
     }
   }
 
-  async saveImgMetaData (imgContent) {
+  saveImgMetaData (imgContent) {
     const { id, size, mimetype } = imgContent;
     const resObj = {
       id: id,
-      createDate: Date.now(),
+      uploadedAt: Date.now(),
       size: size,
-      mimetype: mimetype,
-      url: `/imgs/${imgContent.filename}`,
+      body: Buffer.from('tést'),
+      mimeType: mimetype,
+      // url: `/imgs/${imgContent.filename}`,
     }
     this.idToJpeg[id] = resObj;
     this.emit('changed');
@@ -60,7 +61,7 @@ class Database extends EventEmitter {
     if (!jpegRaw) {
       return false;
     } else {
-      return `${dbFolder}${jpegRaw.url}`
+      return `${dbFolder}/imgs/${jpegRaw.id}_uploadedFile.jpeg`
     }
   }
 
@@ -68,7 +69,7 @@ class Database extends EventEmitter {
     let allJpegs = Object.values(this.idToJpeg);
     allJpegs.sort((jpegA, jpegB) => jpegB.createdAt - jpegA.createdAt);
 
-    return this.idToJpeg;
+    return allJpegs;
   }
 }
 

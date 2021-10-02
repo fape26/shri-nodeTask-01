@@ -15,16 +15,16 @@ app.use('/imgs', express.static(imgFolder));
 
 app.get('/ping', (req, res) => res.json({ping: 'pong'}));
 
-app.post('/upload' , upload.single('image'), async(req, res) => {
+app.post('/upload' , upload.single('image'), (req, res) => {
   
-  await db.saveImgMetaData(req.file);
+  db.saveImgMetaData(req.file);
 
   return res.json(req.file.id);
 });
 
 app.get('/list', (req, res) => {
     const allImgs = db.find();
-    return res.json([allImgs])
+    return res.json(allImgs)
 });
 
 app.get('/image/:id', (req, res) => {
