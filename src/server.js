@@ -36,7 +36,10 @@ app.get('/image/:id', (req, res) => {
   } else {
     const file = fs.createReadStream(
       path.resolve(fileUrl)
-    );
+    ).on('error', onError);
+    function onError (err) {
+      res.send(err.message)
+    }
     res.setHeader("Content-Disposition", `attachment; filename=${jpegId}.jpeg`);
     res.setHeader('Content-Type', 'image/jpeg');
     file.pipe(res);
