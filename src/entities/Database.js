@@ -1,4 +1,4 @@
-const { EventEmitter } = require('events');       //rename dbAdapter
+const { EventEmitter } = require('events');
 const { existsSync } = require('fs');
 const { dbDumpFile, dbFolder } = require('../config');
 const { writeFile, removeFile } = require('../utils/fs.js');

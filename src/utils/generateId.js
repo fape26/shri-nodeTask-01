@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
 
 module.exports = {
-    generateId: () => nanoid()
+    generateId: () => nanoid(10)
   };
