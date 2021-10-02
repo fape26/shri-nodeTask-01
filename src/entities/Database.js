@@ -32,7 +32,6 @@ class Database extends EventEmitter {
       id: id,
       uploadedAt: Date.now(),
       size: size,
-      body: Buffer.from('tést'),
       mimeType: mimetype,
       // url: `/imgs/${imgContent.filename}`,
     }

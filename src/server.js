@@ -19,7 +19,7 @@ app.post('/upload' , upload.single('image'), (req, res) => {
   
   db.saveImgMetaData(req.file);
 
-  return res.json(req.file.id);
+  return res.json({"id": req.file.id});
 });
 
 app.get('/list', (req, res) => {
@@ -34,7 +34,6 @@ app.get('/image/:id', (req, res) => {
     res.statusCode = 404
     return res.send('Image do not exist')
   } else {
-
     const file = fs.createReadStream(
       path.resolve(fileUrl)
     );
