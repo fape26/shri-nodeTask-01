@@ -17,7 +17,7 @@ app.get('/ping', (req, res) => res.json({ping: 'pong'}));
 
 app.post('/upload' , upload.single('image'), async(req, res) => {
   
-  db.saveImgMetaData(req.file);
+  await db.saveImgMetaData(req.file);
 
   return res.json(req.file.id);
 });
@@ -39,13 +39,14 @@ app.get('/image/:id', (req, res) => {
       path.resolve(fileUrl)
     );
     res.setHeader("Content-Disposition", `attachment; filename=${jpegId}.jpeg`);
+    res.setHeader('Content-Type', 'image/jpeg');
     file.pipe(res);
   }
 });
 
 app.delete('/image/:id', async (req, res) => {
   const jpegId = req.params.id;
-  const delFile = db.remove(jpegId);
+  const delFile = await db.remove(jpegId);
   if (!delFile) {
     res.statusCode = 404
     return res.end()
@@ -73,6 +74,7 @@ app.get('/merge', (req, res) => {
       replaceBackground(backImg, frontImg, newColor, threshold).then(
         (readableStream) => {
           res.setHeader("Content-Disposition", `attachment; filename=merged.jpeg`);
+          res.setHeader('Content-Type', 'image/jpeg');
           readableStream.pipe(res);
       }).catch( err => {
         res.status(500).send(err.message);

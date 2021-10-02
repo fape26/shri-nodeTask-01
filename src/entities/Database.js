@@ -27,15 +27,15 @@ class Database extends EventEmitter {
   }
 
   async saveImgMetaData (imgContent) {
+    const { id, size, mimetype } = imgContent;
     const resObj = {
-      id: imgContent.id,
+      id: id,
       createDate: Date.now(),
-      size: imgContent.size,
-      mimetype: imgContent.mimetype,
-      // url: `/imgs/${imgContent.filename}`,
+      size: size,
+      mimetype: mimetype,
+      url: `/imgs/${imgContent.filename}`,
     }
-    this.idToJpeg[resObj.id] = resObj
-
+    this.idToJpeg[id] = resObj;
     this.emit('changed');
   }
 
@@ -45,7 +45,7 @@ class Database extends EventEmitter {
     if (!jpegRaw) {
       return false;
     } else {
-      removeFile(`${dbFolder}${jpegRaw.url}`);
+      await removeFile(`${dbFolder}${jpegRaw.url}`);
 
       delete this.idToJpeg[jpegId];
 
